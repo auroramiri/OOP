@@ -1,0 +1,101 @@
+[
+  {
+    "Id": 1,
+    "Name": "Battlefield 1",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ut porttitor leo a. Ac auctor augue mauris augue neque gravida in fermentum. Diam quam nulla porttitor massa id. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Risus in hendrerit gravida rutrum quisque. Feugiat nisl pretium fusce id velit. Id diam maecenas ultricies mi eget mauris. Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum mattis pellentesque id nibh tortor id aliquet lectus proin. Libero enim sed faucibus turpis in eu mi bibendum. Id aliquet lectus proin nibh nisl. Orci ac auctor augue mauris augue neque. Posuere lorem ipsum dolor sit amet consectetur. Dolor sit amet consectetur adipiscing. Volutpat est velit egestas dui id ornare arcu. Purus ut faucibus pulvinar elementum integer enim neque. Quisque sagittis purus sit amet. Dictum fusce ut placerat orci nulla.",
+    "Price": 10.99,
+    "Discount": 35,
+    "Category": "FPS",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/bf1.jpg",
+    "DiscountedPrice": 7.1435,
+    "Quantity": 15
+  },
+  {
+    "Id": 2,
+    "Name": "CoD IW",
+    "Description": "CoD IW desc",
+    "Price": 20.99,
+    "Discount": 30,
+    "Category": "FPS",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/cod.jpg",
+    "DiscountedPrice": 14.693,
+    "Quantity": 19
+  },
+  {
+    "Id": 3,
+    "Name": "Dishonored 2",
+    "Description": "Dishonored 2 desc",
+    "Price": 30.0,
+    "Discount": 15,
+    "Category": "Action RPG",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/dh2.jpg",
+    "DiscountedPrice": 25.5,
+    "Quantity": 25
+  },
+  {
+    "Id": 4,
+    "Name": "Divinity Original Sin 2",
+    "Description": "Divinity Original Sin 2 desc",
+    "Price": 25.99,
+    "Discount": 70,
+    "Category": "Action RPG",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/div.jpg",
+    "DiscountedPrice": 7.797,
+    "Quantity": 20
+  },
+  {
+    "Id": 5,
+    "Name": "For Honor",
+    "Description": "For Honor desc",
+    "Price": 35.99,
+    "Discount": 0,
+    "Category": "Action RPG",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/frh.jpg",
+    "DiscountedPrice": 35.99,
+    "Quantity": 20
+  },
+  {
+    "Id": 6,
+    "Name": "Watch Dogs 2",
+    "Description": "Watch Dogs 2 desc",
+    "Price": 23.5,
+    "Discount": 0,
+    "Category": "Third Player Camera",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/wd2.jpg",
+    "DiscountedPrice": 23.5,
+    "Quantity": 30
+  },
+  {
+    "Id": 7,
+    "Name": "Witcher 3",
+    "Description": "Witcher 3 desc",
+    "Price": 15.99,
+    "Discount": 90,
+    "Category": "Action RPG",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/witcher.jpg",
+    "DiscountedPrice": 1.599,
+    "Quantity": 20
+  },
+  {
+    "Id": 8,
+    "Name": "Watch Dogs 2",
+    "Description": "Watch Dogs 2 desc",
+    "Price": 23.5,
+    "Discount": 0,
+    "Category": "Third Player Camera",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/wd2.jpg",
+    "DiscountedPrice": 23.5,
+    "Quantity": 25
+  },
+  {
+    "Id": 9,
+    "Name": "Dishonored 2",
+    "Description": "Dishonored 2 desc",
+    "Price": 30.99,
+    "Discount": 15,
+    "Category": "Action RPG",
+    "ImagePath": "file:///D:/Labs/OOP/lab4/lab4/Assets/dh2.jpg",
+    "DiscountedPrice": 26.3415,
+    "Quantity": 20
+  }
+]

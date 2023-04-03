@@ -1,0 +1,222 @@
+﻿<Window x:Class="lab4.Windows.ProductInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab4.Windows"
+        xmlns:converters="clr-namespace:lab4.Converters"
+        xmlns:core="clr-namespace:lab4.Core" d:DataContext="{d:DesignInstance Type=core:Product}"
+        mc:Ignorable="d"
+        Height="700" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        x:Name="productInfoWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Cursor="D:\Labs\OOP\lab4\lab4\Assets\1.cur"
+        FontSize="15">
+    <Window.Resources>
+        <converters:ZeroToCollapsedConverter x:Key="NewZeroToCollapsedConverter" />
+    </Window.Resources>
+    <Grid
+        Background="{DynamicResource DefaultBackgroundBrush}">
+        <!--#region Close-->
+        <StackPanel
+                Grid.RowSpan="2"
+                Panel.ZIndex="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="8">
+            <StackPanel
+                Grid.RowSpan="2"
+                Panel.ZIndex="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="8">
+                
+                <Button 
+                    Style="{StaticResource CloseButton}"
+                    Name = "closeButton"
+                    Content="{StaticResource close_icon}"
+                    Click="closeButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <!--#endregion-->
+        <!-- Разметка страницы -->
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Vertical" Margin="40">
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <Image x:Name="productImage" Width="auto" Height="450" Stretch="UniformToFill"/>
+                    <StackPanel Orientation="Vertical" Margin="20 0 0 0">
+                        <TextBlock 
+                        FontSize="22" 
+                        FontWeight="SemiBold" 
+                        Text="{Binding Name}" 
+                        Foreground="{DynamicResource SecondaryBrush}" 
+                        Margin="5 0 0 10"/>
+                        <TextBlock 
+                            x:Name="QuontityText"
+                        FontSize="18" 
+                        Foreground="{DynamicResource SecondaryBrush}" 
+                        Margin="5 0 0 5">
+                            <Run Text="{DynamicResource countText}"/>
+                            <Run x:Name="QuontityNum" Text="{Binding Quantity}"/>
+                        </TextBlock>
+                        <TextBlock 
+                        FontSize="18" 
+                        Text="{Binding Category}" 
+                        FontWeight="Bold" 
+                        Foreground="{DynamicResource SecondaryBrush}" 
+                        Margin="5 0 0 5"/>
+                        <TextBlock 
+                        Style="{StaticResource PriceStyle}"
+                        Margin="5" 
+                        Text="{Binding Price, StringFormat={}{0:C}}"
+                        FontSize="17" 
+                        FontFamily="Franklin Gothic Medium"
+                        Foreground="{DynamicResource SecondaryBrush}"/>
+                        <TextBlock Margin="5" Text="{Binding DiscountedPrice, StringFormat={}{0:C}}"
+                        FontSize="17" 
+                        FontFamily="Franklin Gothic Medium"
+                        Foreground="{DynamicResource SecondaryBrush}"
+                        Visibility="{Binding Discount, Converter={StaticResource NewZeroToCollapsedConverter}}" />
+                        <Button 
+                        x:Name="AddToCardButton"
+                        Content="{DynamicResource buyButtonText}"
+                        Width="150" Height="40" 
+                        Style="{StaticResource AddToCardButtonStyle}"
+                        Margin="0 20 0 0"
+                            Command="ApplicationCommands.Save">
+                            <Button.CommandBindings>
+                                <CommandBinding Command="Save" Executed="AddToCard_Executed" />
+                            </Button.CommandBindings>
+                        </Button>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,10,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Button 
+                                    x:Name="RemoveOneFromToCard"
+                                    Margin="5"
+                                    Style="{StaticResource buttonCounter}"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    Command="ApplicationCommands.Save">
+                                    <Button.CommandBindings>
+                                        <CommandBinding Command="Save" Executed="RemoveOneFromToCard_Executed" />
+                                    </Button.CommandBindings>
+                                    <Image Source="../Images/low.png"/>
+                            </Button>
+                                <Button 
+                                    x:Name="RemoveTenFromToCard"
+                                    Margin="5"
+                                    Style="{StaticResource buttonCounter}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    Command="ApplicationCommands.Save">
+                                    <Button.CommandBindings>
+                                        <CommandBinding Command="Save" Executed="RemoveTenFromToCard_Executed" />
+                                    </Button.CommandBindings>
+                                    <Image Source="../Images/low.png"/>
+                                </Button>
+                                <TextBlock 
+                                    x:Name="QuontityToCard"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="25"
+                                    Text="1"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="2"/>
+                                <Button 
+                                    x:Name="AddOneToCard"
+                                    Margin="5"
+                                    Style="{StaticResource buttonCounter}"
+                                Grid.Column="3"
+                                HorizontalAlignment="Center"
+                                    Command="ApplicationCommands.Save">
+                                    <Button.CommandBindings>
+                                        <CommandBinding Command="Save" Executed="AddOneButton_Executed" />
+                                    </Button.CommandBindings>
+                                <Image Source="../Images/add.png"/>
+                            </Button>
+                                <Button 
+                                    x:Name="AddTenToCard"
+                                    Margin="3"
+                                    Style="{StaticResource buttonCounter}"
+                                Grid.Column="4"
+                                HorizontalAlignment="Center"
+                                    Command="ApplicationCommands.Save">
+                                    <Button.CommandBindings>
+                                        <CommandBinding Command="Save" Executed="AddTenToCard_Executed" />
+                                    </Button.CommandBindings>
+                                    <Image Source="../Images/add.png"/>
+                                </Button>
+                                <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Text="+1"
+                                    Grid.Row="1"
+                                    Grid.Column="3"/>
+                                <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Text="+10"
+                                    Grid.Row="1"
+                                    Grid.Column="4"/>
+                                <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Text="-1"
+                                    Grid.Row="1"
+                                    Grid.Column="0"/>
+                                <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Text="-10"
+                                    Grid.Row="1"
+                                    Grid.Column="1"/>
+                            </Grid>
+                            
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock 
+                FontSize="18" 
+                FontWeight="Bold" 
+                Text="{DynamicResource descriptionText}" 
+                Foreground="{DynamicResource SecondaryBrush}" 
+                Margin="0 0 0 10"/>
+                <TextBlock 
+                Text="{Binding Description}" 
+                FontSize="15" 
+                TextWrapping="Wrap" 
+                Foreground="{DynamicResource SecondaryBrush}" 
+                Margin="0 0 0 20" Height="Auto"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

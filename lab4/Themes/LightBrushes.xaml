@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    <SolidColorBrush x:Key="DefaultBackgroundBrush"
+                     Color="#FFE8E8EA"/>
+    <SolidColorBrush x:Key="CanvasBrush"
+                     Color="#FF75759E"/>
+    <SolidColorBrush x:Key="PrimaryBrush"
+                     Color="#00AAEB"/>
+    <SolidColorBrush x:Key="SecondaryBrush"
+                     Color="Black"/>
+    <SolidColorBrush x:Key="TertiaryBrush"
+                     Color="#E53E46"/>
+    <SolidColorBrush x:Key="DimBrush"
+                     Color="#FF58588E"/>
+    <SolidColorBrush x:Key="BorderBrush"
+                     Color="#FF58588E"/>
+    <SolidColorBrush x:Key="BackIconBrush"
+                     Color="Black"/>
+    <SolidColorBrush x:Key="ButtonBackgroundHoverBrush"
+                     Color="Gray"/>
+</ResourceDictionary>

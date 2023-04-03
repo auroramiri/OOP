@@ -1,0 +1,532 @@
+﻿<Window x:Class="lab4.Windows.ManagmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab4.Windows" 
+        xmlns:converters="clr-namespace:lab4.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Height="700" Width="1200"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        x:Name="shoppingCardWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Cursor="D:\Labs\OOP\lab4\lab4\Assets\1.cur"
+        FontSize="15">
+    <Window.Resources>
+        <Style 
+        x:Key="DeleteButton"
+        TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                    TargetType="{x:Type Button}">
+                        <Border
+                        Background="{TemplateBinding Background}">
+                            <Path
+                            Data="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                            Fill="{DynamicResource SecondaryBrush}"
+                            Height="{TemplateBinding FontSize}"
+                            Width="{TemplateBinding FontSize}"
+                            Stretch="Uniform"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <converters:ZeroToCollapsedConverter x:Key="ManagmentZeroToCollapsedConverter" />
+    </Window.Resources>
+    <Grid
+        Background="{DynamicResource DefaultBackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button
+            x:Name="backButton"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Content="{DynamicResource managmentBackText}"
+            Style="{StaticResource NavBackButtonStyle}"
+            Click="closeButton_Click"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="1"
+                    CornerRadius="10"
+                    Background="{DynamicResource DimBrush}"
+                    HorizontalAlignment="Left"
+                    Height="40"
+                    MinWidth="400"
+                    Margin="50,0"
+                    Padding="10,0,10,0">
+                <Grid 
+                    Background="{DynamicResource DimBrush}"
+                    HorizontalAlignment="Left"
+                    Height="40"
+                    MinWidth="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Path
+                        Data="{StaticResource search_icon}"
+                        Fill="{DynamicResource SecondaryBrush}"
+                        Stretch="Uniform"
+                        Height="15"
+                        Width="15"/>
+                    <TextBox 
+                        x:Name="SearchInput"
+                        Grid.Column="1"
+                        MaxLength="50"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ContextMenu="{x:Null}"
+                        Foreground="{DynamicResource SecondaryBrush}"
+                        VerticalAlignment="Center"
+                        TextChanged="SearchInput_TextChanged"/>
+                </Grid>
+            </Border>
+            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" Margin="0,10,0,0">
+                <ItemsControl x:Name="managmentList">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                         <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="0"
+                                    MouseLeftButtonUp="ShowProductInfo">
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="170"/>
+                                        <ColumnDefinition Width="170" />
+                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="50" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Path=ImagePath}" Width="100" Height="100"/>
+                                    <TextBlock 
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="1"
+                                    Text="{Binding Path=Name}" 
+                                    FontWeight="Bold" 
+                                    VerticalAlignment="Center" 
+                                    Margin="5"/>
+                                    <TextBlock 
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="2" 
+                                    Text="{Binding Path=Category}"
+                                    VerticalAlignment="Center" 
+                                    Margin="5"/>
+                                    <TextBlock 
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="3" 
+                                    Text="{Binding Path=Price, StringFormat='{}{0:C}'}" 
+                                    VerticalAlignment="Center" 
+                                    Margin="5"/>
+                                    <TextBlock 
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="4"
+                                    VerticalAlignment="Center" 
+                                    Margin="5"
+                                    Text="{Binding Discount, StringFormat='{}{0}% off'}"
+                                    Visibility="{Binding Discount, Converter={StaticResource ManagmentZeroToCollapsedConverter}}" />
+                                    <TextBlock 
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="5"
+                                    VerticalAlignment="Center" 
+                                    Margin="5"
+                                    Text="{Binding DiscountedPrice, StringFormat='{}{0:C}'}"/>
+                                    <TextBlock  
+                                    x:Name="Quantity"
+                                    Foreground="{DynamicResource SecondaryBrush}"
+                                    Grid.Column="6"
+                                    VerticalAlignment="Center" 
+                                    Margin="5"
+                                    Text="{Binding Path=Quantity}"/>
+                                    <StackPanel 
+                                    VerticalAlignment="Center"
+                                    Grid.Column="7" 
+                                    Orientation="Vertical">
+                                        <Button 
+                                    x:Name="AddOneProduct"
+                                    Margin="5"
+                                    Style="{StaticResource buttonCounter}"
+                                    HorizontalAlignment="Center"
+                                            Command="ApplicationCommands.Save">
+                                            <Button.CommandBindings>
+                                                <CommandBinding Command="Save" Executed="AddOneProduct_Executed" />
+                                            </Button.CommandBindings>
+                                            <Image Source="../Images/add.png"/>
+                                        </Button>
+                                        <Button 
+                                            x:Name="RemoveOneProduct"
+                                            Style="{StaticResource buttonCounter}"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Center"
+                                            Command="ApplicationCommands.Save">
+                                            <Button.CommandBindings>
+                                                <CommandBinding Command="Save" Executed="RemoveOneProduct_Executed" />
+                                            </Button.CommandBindings>
+                                            <Image Source="../Images/low.png"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <Button
+                                        Style="{StaticResource DeleteButton}"
+                                        Grid.Column="8"
+                                        Content="{StaticResource close_icon}"
+                                        Command="ApplicationCommands.Save">
+                                        <Button.CommandBindings>
+                                            <CommandBinding Command="Save" Executed="DeleteButton_Executed" />
+                                        </Button.CommandBindings>
+                                    </Button>
+                                    <Separator 
+                                        VerticalAlignment="Bottom"
+                                        Grid.ColumnSpan="9"
+                                        Margin="150,5,50,0"
+                                        Background="{DynamicResource BackIconBrush}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <TabControl 
+            BorderThickness="0"
+            TabStripPlacement="Left"
+            Grid.Row="0"
+              Grid.RowSpan="2"
+              Grid.Column="1"
+              Background="#4B4643">
+            <TabControl.Effect>
+                <DropShadowEffect ShadowDepth="10" BlurRadius="50"/>
+            </TabControl.Effect>
+            <TabItem
+                BorderThickness="0"
+                Header="{DynamicResource tabItemEditText}" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <StackPanel 
+                    Grid.Column="1"
+                    HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                    Width="120" 
+                    Height="200"
+                    Margin="0,50,10,0"
+                    Background="Transparent" 
+                AllowDrop="True"
+                    Drop="OnDrop">
+                            <Image x:Name="ImageControl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <Button 
+                x:Name="SaveButton"
+                Style="{StaticResource buttonCheckout}"
+                Command="ApplicationCommands.Save">
+                        <Button.CommandBindings>
+                            <CommandBinding Command="Save" Executed="SaveButton_Executed" />
+                        </Button.CommandBindings>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource save_icon}"
+                                  Fill="{StaticResource ButtonBackgroundHoverBrush}" 
+                                  Margin="0,0,20,0"
+                                  VerticalAlignment="Center"/>
+                            <TextBlock 
+                                VerticalAlignment="Center"
+                                Text="{DynamicResource saveButtonText}"/>
+                        </StackPanel>
+                    </Button>
+                <StackPanel Margin="10" VerticalAlignment="Top">
+
+                    <TextBlock
+                    Text="{DynamicResource productDetailsText}" 
+                    Style="{StaticResource titleText}"
+                    Foreground="{DynamicResource SecondaryBrush}" 
+                    FontWeight="SemiBold" 
+                    FontSize="24" 
+                    Margin="0 0 0 10"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                            x:Name="undoBtn"
+                            Click="undoBtn_Click"
+                            HorizontalAlignment="Left"
+                            Margin="10,0,0,0"
+                            Style="{StaticResource buttonCounter}">
+                                <Path Stretch="Fill" Fill="{StaticResource DefaultBackgroundBrush}" Data="{StaticResource undo_icon}"/>
+                            </Button>
+                            <Button
+                            x:Name="redoBtn"
+                            Click="redoBtn_Click"
+                            HorizontalAlignment="Left"
+                            Margin="10,0,0,0"
+                            Style="{StaticResource buttonCounter}">
+                                <Path Stretch="Fill" Fill="{StaticResource DefaultBackgroundBrush}" Data="{StaticResource redo_icon}"/>
+                            </Button>
+                        </StackPanel>
+                        <TextBlock 
+                    Text="{DynamicResource productName}" 
+                    Style="{StaticResource titleText}"/>
+                        <TextBox 
+                    x:Name="ProductNameTextBox"
+                    HorizontalAlignment="Left"
+                    Width="120"
+                    MaxLength="30"
+                        ContextMenu="{x:Null}"
+                    PreviewTextInput="ProductNameTextBox_PreviewTextInput"
+                    Margin="0,5,0,30" 
+                    Style="{StaticResource CardTextBox}"/>
+                        <TextBlock 
+                    Text="{DynamicResource categoryProductSort}" 
+                    Style="{StaticResource titleText}"/>
+                    <TextBox 
+                    x:Name="ProductCategoryTextBox"
+                    HorizontalAlignment="Left"
+                    Width="120"
+                    MaxLength="50"
+                    ContextMenu="{x:Null}"
+                    PreviewTextInput="ProductNameTextBox_PreviewTextInput"
+                    Margin="0,5,0,30" 
+                    Style="{StaticResource CardTextBox}"/>
+
+                    <StackPanel Width="100"
+                                HorizontalAlignment="Left">
+                        <TextBlock 
+                        Text="{DynamicResource productPrice}" 
+                        Style="{StaticResource titleText}"/>
+                        <TextBox 
+                        x:Name="ProductPriceTextBox"
+                        HorizontalAlignment="Left"
+                        Width="50"
+                        MaxLength="5"
+                        Margin="0,5,0,30"
+                        ContextMenu="{x:Null}"
+                        PreviewKeyDown="ProductNameTextBox_PreviewKeyDown"
+                        PreviewTextInput="ProductPriceTextBox_PreviewTextInput"
+                        Style="{StaticResource CardTextBox}"/>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel 
+                        Grid.Column="0" 
+                        Margin="0,0,30,0" 
+                        HorizontalAlignment="Left">
+                            <TextBlock 
+                            Text="{DynamicResource productDiscount}" 
+                            Style="{StaticResource titleText}"/>
+                            <TextBox 
+                        x:Name="DiscountTextBox" 
+                        PreviewTextInput="DiscountTextBox_PreviewTextInput"
+                        MaxLength="2"
+                            Width="30"
+                        ContextMenu="{x:Null}"
+                            HorizontalAlignment="Left"
+                        Margin="0 5 0 0" 
+                        Style="{StaticResource CardTextBox}"/>
+                        </StackPanel>
+                        <StackPanel 
+                        Grid.Column="1" 
+                        Margin="0,0,30,0" 
+                        HorizontalAlignment="Left">
+                            <TextBlock 
+                            Width="70"
+                            Text="{DynamicResource countText}" 
+                            Style="{StaticResource titleText}"/>
+                            <TextBox 
+                            Width="30"
+                            HorizontalAlignment="Left"
+                            x:Name="QuantityTextBox" 
+                            MaxLength="4"
+                            Margin="0 5 0 0" 
+                        ContextMenu="{x:Null}"
+                            Style="{StaticResource CardTextBox}"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock 
+                    Margin="0,10,0,0"
+                    Text="{DynamicResource descriptionText}" 
+                    Style="{StaticResource titleText}"/>
+                    <TextBox 
+                    x:Name="DescriptionTextBox"
+                        ContextMenu="{x:Null}"
+                    VerticalScrollBarVisibility="Hidden"
+                    TextWrapping="Wrap"
+                    Margin="0 5 0 0" 
+                    Style="{StaticResource CardTextBox}"
+                    MaxHeight="200"/>
+                </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem
+                Header="{DynamicResource tabItemAddText}" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <StackPanel 
+                    Grid.Column="1"
+                    HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                    Width="120" 
+                    Height="200"
+                    Margin="0,50,10,0"
+                    Background="Transparent" 
+                AllowDrop="True"
+                    Drop="OnDropAdd">
+                        <Image x:Name="ImageAddControl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button 
+                x:Name="CreateButton"
+                Style="{StaticResource buttonCheckout}"
+                Command="ApplicationCommands.Save">
+                        <Button.CommandBindings>
+                            <CommandBinding Command="Save" Executed="CreateButton_Executed" />
+                        </Button.CommandBindings>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource upload_icon}"
+                                  Fill="{StaticResource ButtonBackgroundHoverBrush}" 
+                                  Margin="0,0,20,0"
+                                  VerticalAlignment="Center"/>
+                            <TextBlock 
+                                VerticalAlignment="Center"
+                                Text="{DynamicResource addButtonText}"/>
+                        </StackPanel>
+                    </Button>
+                    <StackPanel Margin="10" VerticalAlignment="Top">
+
+                        <TextBlock
+                    Text="{DynamicResource productAddText}" 
+                    Style="{StaticResource titleText}"
+                    Foreground="{DynamicResource SecondaryBrush}" 
+                    FontWeight="SemiBold" 
+                    FontSize="24" 
+                    Margin="0 0 0 10"/>
+                        <TextBlock 
+                    Text="{DynamicResource productName}" 
+                    Style="{StaticResource titleText}"/>
+                        <TextBox 
+                    x:Name="ProductAddNameTextBox"
+                    HorizontalAlignment="Left"
+                    Width="120"
+                    MaxLength="50"
+                        ContextMenu="{x:Null}"
+                    PreviewTextInput="ProductNameTextBox_PreviewTextInput"
+                    Margin="0,5,0,30" 
+                    Style="{StaticResource CardTextBox}"/>
+
+                        <TextBlock 
+                    Text="{DynamicResource categoryProductSort}" 
+                    Style="{StaticResource titleText}"/>
+                        <TextBox 
+                    x:Name="ProductAddCategoryTextBox"
+                    HorizontalAlignment="Left"
+                    Width="120"
+                    MaxLength="30"
+                        ContextMenu="{x:Null}"
+                    PreviewTextInput="ProductNameTextBox_PreviewTextInput"
+                    Margin="0,5,0,30" 
+                    Style="{StaticResource CardTextBox}"/>
+
+                        <StackPanel Width="100"
+                                HorizontalAlignment="Left">
+                            <TextBlock 
+                        Text="{DynamicResource productPrice}" 
+                        Style="{StaticResource titleText}"/>
+                            <TextBox 
+                        x:Name="ProductAddPriceTextBox"
+                        HorizontalAlignment="Left"
+                        Width="50"
+                        MaxLength="5"
+                        Margin="0,5,0,30"
+                        ContextMenu="{x:Null}"
+                        PreviewKeyDown="ProductNameTextBox_PreviewKeyDown"
+                        PreviewTextInput="ProductPriceTextBox_PreviewTextInput"
+                        Style="{StaticResource CardTextBox}"/>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel 
+                        Grid.Column="0" 
+                        Margin="0,0,30,0" 
+                        HorizontalAlignment="Left">
+                                <TextBlock 
+                            Text="{DynamicResource productDiscount}" 
+                            Style="{StaticResource titleText}"/>
+                                <TextBox 
+                        x:Name="DiscountAddTextBox" 
+                        PreviewTextInput="DiscountTextBox_PreviewTextInput"
+                        MaxLength="2"
+                            Width="30"
+                        ContextMenu="{x:Null}"
+                            HorizontalAlignment="Left"
+                        Margin="0 5 0 0" 
+                        Style="{StaticResource CardTextBox}"/>
+                            </StackPanel>
+                            <StackPanel 
+                        Grid.Column="1" 
+                        Margin="0,0,30,0" 
+                        HorizontalAlignment="Left">
+                                <TextBlock 
+                            Width="70"
+                            Text="{DynamicResource countText}" 
+                            Style="{StaticResource titleText}"/>
+                                <TextBox 
+                            Width="30"
+                            HorizontalAlignment="Left"
+                            x:Name="QuantityAddTextBox" 
+                            MaxLength="4"
+                            Margin="0 5 0 0" 
+                        ContextMenu="{x:Null}"
+                            Style="{StaticResource CardTextBox}"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock 
+                    Margin="0,10,0,0"
+                    Text="{DynamicResource descriptionText}" 
+                    Style="{StaticResource titleText}"/>
+                        <TextBox 
+                    x:Name="DescriptionAddTextBox"
+                        ContextMenu="{x:Null}"
+                    VerticalScrollBarVisibility="Hidden"
+                    TextWrapping="Wrap"
+                    Margin="0 5 0 0" 
+                    Style="{StaticResource CardTextBox}"
+                    MaxHeight="230"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
